@@ -1,3 +1,40 @@
+## Root Method (recommended on 2023-04-05)
+
+1. Install and build
+
+```
+npm ci
+# Set `rootDirectory` to `"apps/next-js-project"` in the Vercel UI and pull the settings down
+npx vercel pull
+NEXT_REPRO_TRACINGROOT=1 npx vercel build
+```
+
+2. Note that the `.vercel/output` does not includes some but not all of the correct `node_modules` to boot the functions on Vercel
+
+3. Deploy
+
+```
+npx vercel deploy --prebuilt
+```
+
+4. View the preview URL
+5. Navigate to xxx.vercel.app/test
+6. Look at the errors in the Vercel function logs
+
+```
+Cannot find module './initialize-require-hook'
+Require stack:
+- /var/task/node_modules/next/dist/server/next-server.js
+- /var/task/apps/public/blue-origin-next-js/___next_launcher.cjs
+Did you forget to add it to "dependencies" in `package.json`?
+RequestId: 768ef631-d772-4ce0-b447-b7aa8705cbac Error: Runtime exited with error: exit status 1
+Runtime.ExitError
+```
+
+---
+
+## CWD Method (method I was using before)
+
 1. Install and build
 
 ```
